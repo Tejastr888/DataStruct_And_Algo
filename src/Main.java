@@ -1,6 +1,7 @@
 import Graph.Graph;
 import Graph.Node;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -8,7 +9,12 @@ import java.util.Queue;
 public class Main {
     public static void main(String[] args) {
         Graph graph=createGraph();
-        bfs(graph.graph,new Node(0,0));
+        System.out.println("b f s");
+        bfs(graph.graph,new Node(1,0));
+        System.out.println("d f s");
+        dfs(graph.graph,new Node(0,0));
+        System.out.println("dfs recurse");
+        dfsRecursive(graph.graph,new Node(0,0));
     }
     private static Graph createGraph() {
         Graph graph=new Graph();
@@ -21,6 +27,7 @@ public class Main {
         graph.addNode(2,4,1);
         graph.addNode(4,3,6);
         graph.addNode(4,0,7);
+        graph.print();
         return graph;
     }
     public static void bfs(List<List<Node>> graph, Node source){
@@ -36,6 +43,35 @@ public class Main {
                     visited[graph.get(des.to).get(i).to]=true;
                     queue.add(graph.get(des.to).get(i));
                 }
+            }
+        }
+    }
+    public static void dfs(List<List<Node>> graph,Node source){
+        boolean[] visited=new boolean[graph.size()];
+        List<Node> list=new ArrayList<Node>();
+        visited[source.to]=true;
+        list.add(source);
+        while (!list.isEmpty()){
+            Node des=list.removeLast();
+            System.out.println(des.toString());
+            for(int i=0;i<graph.get(des.to).size();i++){
+                if(!visited[graph.get(des.to).get(i).to]){
+                    visited[graph.get(des.to).get(i).to]=true;
+                    list.add(graph.get(des.to).get(i));
+                }
+            }
+        }
+    }
+    public static void dfsRecursive(List<List<Node>> graph,Node source){
+        boolean [] visited =new boolean[graph.size()];
+        dfsHelper(graph,source,visited);
+    }
+    public static void dfsHelper(List<List<Node>> graph,Node source,boolean [] visited){
+        visited[source.to]=true;
+        System.out.println(source.toString());
+        for(int i = 0;i<graph.get(source.to).size();i++){
+            if(!visited[graph.get(source.to).get(i).to]){
+                dfsHelper(graph,graph.get(source.to).get(i),visited);
             }
         }
     }
