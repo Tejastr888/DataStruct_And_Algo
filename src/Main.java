@@ -8,7 +8,8 @@ import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) {
-        long res=binpow(3,13);
+        long res1=binpow(3,13);
+        long res=binpowNonRec(3,13);
         System.out.println(res);
     }
     public static long binpow(long a,long n){
@@ -19,6 +20,18 @@ public class Main {
         }else{
             return res * res * a;
         }
+    }
+    public static long binpowNonRec(long a,long n){
+        long res=1;
+        while (n>0){
+            if(n%2!=0){
+                res=res*a;
+            }
+            a*=a;
+
+            n>>=1;
+        }
+        return res;
     }
     private static Graph createGraph() {
         Graph graph=new Graph();
