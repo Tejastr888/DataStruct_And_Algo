@@ -8,13 +8,17 @@ import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) {
-        Graph graph=createGraph();
-        System.out.println("b f s");
-        bfs(graph.graph,new Node(1,0));
-        System.out.println("d f s");
-        dfs(graph.graph,new Node(0,0));
-        System.out.println("dfs recurse");
-        dfsRecursive(graph.graph,new Node(0,0));
+        long res=binpow(3,13);
+        System.out.println(res);
+    }
+    public static long binpow(long a,long n){
+        if(n==0) return 1;
+        long res= binpow(a,n/2);
+        if(n>0 && n%2==0){
+            return res * res;
+        }else{
+            return res * res * a;
+        }
     }
     private static Graph createGraph() {
         Graph graph=new Graph();
